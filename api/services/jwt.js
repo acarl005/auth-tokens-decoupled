@@ -12,7 +12,7 @@ exports.encode = function(payload, secret) {
 
 exports.decode = function(token, secret) {
   var segments = token.split('.');
-  if (segments.legnth !== 3)
+  if (segments.length !== 3)
     throw new Error('Token structure incorrect.');
   var header = JSON.parse(base64Decode(segments[0]));
   var payload = JSON.parse(base64Decode(segments[1]));

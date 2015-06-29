@@ -1,23 +1,19 @@
 'use strict';
 
 angular.module('tokenAuthApp')
-  .controller('RegisterCtrl', function ($scope, $http, $state, alert, authToken, API_URL) {
+  .controller('RegisterCtrl', function ($scope, $http, alert, auth) {
     $scope.submit = function() {
 
-      var url = API_URL + 'register',
-          user = {
-            email: $scope.email,
-            password: $scope.password,
-          };
+      var user = {
+        email: $scope.email,
+        password: $scope.password,
+      };
 
-      $http.post(url, user)
-        .success(function(res) {
-          authToken.setToken(res.token);
-          $state.go('main');
-          alert('success', 'Registered', 'Welcome, ' + res.user.email + '!');
-        })
-        .error(function(err) {
-          alert('warning', 'Error', 'Could not register.');
-        });
+      auth.register(user).success(function(res) {
+        alert('success', 'Registered', 'Welcome, ' + res.user.email + '!');
+      })
+      .error(function(err) {
+        alert('warning', 'Error', 'Could not register.');
+      });
     }
   });

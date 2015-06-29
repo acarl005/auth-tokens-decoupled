@@ -3,7 +3,7 @@
       ng-submit="submit()"
       novalidate>
 
-  <h1 class="form-signin-heading text-muted">Sign Up</h1>
+  <h1 class="form-signin-heading text-muted">Sign In</h1>
 
   <input type="email"
          ng-model="email"
@@ -23,20 +23,11 @@
          placeholder="Password"
          required>
 
-  <input name="password_confirm"
-         ng-model="password_confirm"
-         type="password"
-         class="form-control"
-         placeholder="Confirm Password"
-         validate-equals="password">
-  <p class="help-block"
-     ng-show="register.password_confirm.$dirty && register.password_confirm.$invalid">
-    password not matching
-  </p>
-
   <button ng-disabled="register.$invalid"
           class="btn btn-lg btn-primary btn-block"
           type="submit">
-    Sign Up
+    Sign In
   </button>
+  <br>
+  <a ui-sref="register">New? Create an account.</a>
 </form>

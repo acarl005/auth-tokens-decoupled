@@ -16,6 +16,11 @@ angular
       templateUrl: '/views/register.html',
       controller: 'RegisterCtrl',
     })
+    .state('login', {
+      url: '/login',
+      templateUrl: '/views/login.html',
+      controller: 'LoginCtrl',
+    })
     .state('logout', {
       url: '/logout',
       controller: 'LogoutCtrl',
