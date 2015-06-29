@@ -13,7 +13,7 @@ angular.module('tokenAuthApp')
         alert('success', 'Registered', 'Welcome, ' + res.user.email + '!');
       })
       .error(function(err) {
-        alert('warning', 'Error', 'Could not register.');
+        alert('warning', 'Error', err.message);
       });
     }
   });

@@ -16,13 +16,19 @@ app.use(function(req, res, next) {
 
 app.post('/register', function(req, res) {
 
-  var user = new User({
-    email: req.body.email,
-    password: req.body.password,
-  });
+  User.findOne({email: req.body.email}, function(err, user) {
+    if (err) throw err;
+    if (user)
+      return res.status(400).send({message: 'Email already registered'});
 
-  user.save(function(err) {
-    createTokenAndSend(user, res);
+    user = new User({
+      email: req.body.email,
+      password: req.body.password,
+    });
+
+    user.save(function(err) {
+      createTokenAndSend(user, res);
+    });
   });
 
 });
