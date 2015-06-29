@@ -2,7 +2,7 @@
 
 angular
   .module('tokenAuthApp', ['ui.router', 'ngAnimate'])
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
     $urlRouterProvider.otherwise("/main");
 
@@ -26,4 +26,7 @@ angular
       controller: 'JobsCtrl',
     });
 
-  });
+    $httpProvider.interceptors.push('authInterceptor');
+
+  })
+  .constant('API_URL', 'http://localhost:3000/');

@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var User = require('./models/user');
+var Job = require('./models/job');
 var jwt = require('./services/jwt');
 
 var app = express();
@@ -22,7 +23,7 @@ app.post('/register', function(req, res) {
 
   var payload = {
     iss: req.hostname,
-    sub: user._id,
+    sub: user.id,
   };
 
   var token = jwt.encode(payload, "shh..");
@@ -34,6 +35,20 @@ app.post('/register', function(req, res) {
     });
   });
 
+});
+
+
+app.get('/jobs', function(req, res) {
+  if (!req.headers.authorization) return res.sendStatus(401);
+
+  var token = req.headers.Authorization.split(' ')[1];
+  var payload = jwt.decode(token, 'shh..');
+  if (!payload.sub)
+    res.status(401).send({message: 'Authentication failed.'});
+
+  Job.find().lean().exec(function (err, jobs) {
+    return res.json(jobs);
+  });
 });
 
 mongoose.connect('mongodb://andy:corn@ds041377.mongolab.com:41377/token');

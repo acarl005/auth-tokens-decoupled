@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('tokenAuthApp')
-  .controller('RegisterCtrl', function ($scope, $http, $state, alert, authToken) {
+  .controller('RegisterCtrl', function ($scope, $http, $state, alert, authToken, API_URL) {
     $scope.submit = function() {
 
-      var url = 'http://localhost:3000/register',
+      var url = API_URL + 'register',
           user = {
             email: $scope.email,
             password: $scope.password,
@@ -12,8 +12,9 @@ angular.module('tokenAuthApp')
 
       $http.post(url, user)
         .success(function(res) {
-          alert('success', 'Registered', 'Welcome, ' + res.user.email + '!');
           authToken.setToken(res.token);
+          $state.go('main');
+          alert('success', 'Registered', 'Welcome, ' + res.user.email + '!');
         })
         .error(function(err) {
           alert('warning', 'Error', 'Could not register.');
