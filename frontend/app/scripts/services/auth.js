@@ -7,13 +7,9 @@ angular.module('tokenAuthApp')
       $state.go('main');
     };
     this.login = function(user) {
-      return $http.post(API_URL + 'login', user).success(function(res) {
-        authSuccess(res);
-      });
+      return $http.post(API_URL + 'login', user).success(authSuccess);
     };
     this.register = function(user) {
-      return $http.post(API_URL + 'register', user).success(function(res) {
-        authSuccess(res);
-      });
+      return $http.post(API_URL + 'register', user).success(authSuccess);
     }
   });
